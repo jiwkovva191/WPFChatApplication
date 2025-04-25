@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Windows.Media;
 using ChatApplication.Core;
 using ChatApplication.MVVM.Model;
+using ChatApplication.Net;
 
 namespace ChatApplication.MVVM.ViewModel
 {
@@ -17,6 +18,8 @@ namespace ChatApplication.MVVM.ViewModel
 
         /*Commands*/
         public RelayCommand SendCommand { get; set; }
+        public RelayCommand ConnectToServerCommand { get; set; }
+        private Server _server;
         
         private ContactModel _selectedContact;
 
@@ -41,6 +44,13 @@ namespace ChatApplication.MVVM.ViewModel
 
         public MainViewModel()
         {
+            /*server*/
+            _server = new Server();
+            ConnectToServerCommand = new RelayCommand(o =>
+            {
+                _server.ConnectToServer();
+            });
+            /*ui*/
             Messages = new ObservableCollection<MessageModel>();
             Contacts = new ObservableCollection<ContactModel>();
             SendCommand = new RelayCommand(o =>

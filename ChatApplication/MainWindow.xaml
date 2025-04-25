@@ -68,6 +68,7 @@
                 <RowDefinition/>
                 <RowDefinition Height="60"/>
             </Grid.RowDefinitions>
+            
             <Label Content="Contacts"
                    VerticalAlignment="Center"
                    FontWeight="Medium"
@@ -96,7 +97,11 @@
                            FontWeight="SemiBold"
                            FontSize="10"
                            Margin="0,-8,0,-5"/>
-                    
+                    <Button Height="20"
+                            Content="Connect"
+                            Command="{Binding ConnectToServerCommand}"
+                            Margin="0,8,0,0"/>
+
 
                 </StackPanel>
 
