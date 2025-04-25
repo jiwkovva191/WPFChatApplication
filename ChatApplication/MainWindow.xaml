@@ -74,6 +74,7 @@
                    Foreground="Gray"
                    Margin="8,0,0,0"/>
             <ListView ItemsSource="{Binding Contacts}"
+                      SelectedItem="{Binding SelectedContact}"
                       Background="Transparent"
                       BorderThickness="0"
                       Grid.Row="1"

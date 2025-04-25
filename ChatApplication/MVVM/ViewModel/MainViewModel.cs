@@ -16,7 +16,17 @@ namespace ChatApplication.MVVM.ViewModel
         public ObservableCollection<ContactModel> Contacts { get; set; }
 
         /*Commands*/
-        public ContactModel SelectedContact { get; set; }
+        public RelayCommand SendCommand { get; set; }
+        
+        private ContactModel _selectedContact;
+
+        public ContactModel SelectedContact
+        {
+            get { return _selectedContact; }
+            set { _selectedContact = value; OnPropertyChanged(); }
+           
+        }
+
         private string _message;
 
         public string Message
@@ -33,6 +43,15 @@ namespace ChatApplication.MVVM.ViewModel
         {
             Messages = new ObservableCollection<MessageModel>();
             Contacts = new ObservableCollection<ContactModel>();
+            SendCommand = new RelayCommand(o =>
+            {
+                Messages.Add(new MessageModel
+                {
+                    Message = Message,
+                    FirstMessage = false
+                });
+                Message = "";
+            });
 
             Messages.Add(new MessageModel
             {
