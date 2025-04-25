@@ -39,7 +39,6 @@
 
   <ItemGroup>
     <Folder Include="MVVM\View\" />
-    <Folder Include="Core\" />
   </ItemGroup>
 
   <ItemGroup>

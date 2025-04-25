@@ -5,14 +5,29 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media;
+using ChatApplication.Core;
 using ChatApplication.MVVM.Model;
 
 namespace ChatApplication.MVVM.ViewModel
 {
-    public class MainViewModel
+    public class MainViewModel:ObservableObject
     {
         public ObservableCollection<MessageModel> Messages { get; set; }
         public ObservableCollection<ContactModel> Contacts { get; set; }
+
+        /*Commands*/
+        public ContactModel SelectedContact { get; set; }
+        private string _message;
+
+        public string Message
+        {
+            get { return _message; }
+            set {
+                _message = value;
+                OnPropertyChanged();
+            }
+        }
+
 
         public MainViewModel()
         {
