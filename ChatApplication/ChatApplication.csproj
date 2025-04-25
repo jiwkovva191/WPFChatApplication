@@ -9,6 +9,35 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Icons\camera.png" />
+    <None Remove="Icons\phone-call.png" />
+    <None Remove="Icons\plus.png" />
+    <None Remove="Icons\send.png" />
+    <None Remove="Icons\video-camera.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Icons\phone-call.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Icons\plus.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Icons\send.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Icons\video-camera.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Icons\camera.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="MVVM\View\" />
     <Folder Include="Core\" />
   </ItemGroup>
