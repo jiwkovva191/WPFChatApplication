@@ -12,14 +12,16 @@ using ChatApplication.Net;
 namespace ChatApplication.MVVM.ViewModel
 {
     public class MainViewModel:ObservableObject
-    {
+    { 
+        private Server _server;
+        public string Username { get; set; }
         public ObservableCollection<MessageModel> Messages { get; set; }
         public ObservableCollection<ContactModel> Contacts { get; set; }
 
         /*Commands*/
         public RelayCommand SendCommand { get; set; }
         public RelayCommand ConnectToServerCommand { get; set; }
-        private Server _server;
+       
         
         private ContactModel _selectedContact;
 
@@ -46,10 +48,8 @@ namespace ChatApplication.MVVM.ViewModel
         {
             /*server*/
             _server = new Server();
-            ConnectToServerCommand = new RelayCommand(o =>
-            {
-                _server.ConnectToServer();
-            });
+            ConnectToServerCommand = new RelayCommand(o =>_server.ConnectToServer(Username),o => !string.IsNullOrEmpty(Username));
+            
             /*ui*/
             Messages = new ObservableCollection<MessageModel>();
             Contacts = new ObservableCollection<ContactModel>();

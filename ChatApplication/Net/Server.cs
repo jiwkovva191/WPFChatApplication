@@ -14,7 +14,7 @@ namespace ChatApplication.Net
         {
             _client = new TcpClient();
         }
-        public void ConnectToServer()
+        public void ConnectToServer(string username)
         {
             if (!_client.Connected)
             {

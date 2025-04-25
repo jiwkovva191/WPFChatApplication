@@ -1,0 +1,1 @@
+if you want to connect to the server, you should type your username in the bottom left corner textbox
