@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Media;
 using ChatApplication.Core;
 using ChatApplication.MVVM.Model;
@@ -48,6 +49,7 @@ namespace ChatApplication.MVVM.ViewModel
         {
             /*server*/
             _server = new Server();
+            _server.connectedEvent += UserConnected;
             ConnectToServerCommand = new RelayCommand(o =>_server.ConnectToServer(Username),o => !string.IsNullOrEmpty(Username));
             
             /*ui*/
@@ -120,6 +122,22 @@ namespace ChatApplication.MVVM.ViewModel
                     Messages = Messages
                 });
             }
+        }
+
+        private void UserConnected()
+        {
+            var user = new ContactModel
+            {
+                Username = _server.PacketReader.ReadMessage(),
+                UID = _server.PacketReader.ReadMessage()
+            };
+
+            if(!Contacts.Any(c=>c.UID == user.UID))
+            {
+                Application.Current.Dispatcher.Invoke(() => Contacts.Add(user));
+
+            }
+
         }
     }
 }
