@@ -140,11 +140,25 @@
                 </Grid>
             </Border>
             <ListView ItemsSource="{Binding Messages}"
-                      Background="Transparent"
-                      BorderThickness="0"
-                      
-                      Margin="8,0,0,0"
-                      Grid.Row="1"/>
+          Background="Transparent"
+          BorderThickness="0"
+          Margin="8,0,0,0"
+          Grid.Row="1">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <Border Background="#E0E0E0"
+                                CornerRadius="10"
+                                Padding="10"
+                                Margin="5">
+                            <TextBlock Text="{Binding}" 
+                                       TextWrapping="Wrap"
+                                       Foreground="Black"
+                                       FontSize="14"/>
+                        </Border>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
             <Grid Grid.Row="2">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
