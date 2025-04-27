@@ -139,10 +139,10 @@
                     </StackPanel>
                 </Grid>
             </Border>
-            <ListView ItemsSource="{Binding SelectedContact.Messages}"
+            <ListView ItemsSource="{Binding Messages}"
                       Background="Transparent"
                       BorderThickness="0"
-                      ItemContainerStyle="{StaticResource ChatItem}"
+                      
                       Margin="8,0,0,0"
                       Grid.Row="1"/>
             <Grid Grid.Row="2">
@@ -163,10 +163,17 @@
                            Width="20" Height="20"
                            RenderOptions.BitmapScalingMode="Fant"
                            Margin="5,5,5,0"/>
-                    <Image Source="/Icons/send.png"
-                           Width="20" Height="20"
-                           RenderOptions.BitmapScalingMode="Fant"
-                           Margin="5,5,5,0"/>
+                    <Button Command="{Binding SendMessageCommand}"
+                            Width="30" Height="30"
+                            Padding="0" Margin="5,5,5,0"
+                            Background="Transparent" BorderBrush="Transparent">
+                        <Image Source="/Icons/send.png"
+                        Width="20" Height="20"
+                        RenderOptions.BitmapScalingMode="Fant"
+                        
+                        />
+                    </Button>
+                    
 
                 </StackPanel>
             </Grid>

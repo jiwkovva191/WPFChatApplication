@@ -16,11 +16,14 @@ namespace ChatApplication.MVVM.ViewModel
     { 
         private Server _server;
         public string Username { get; set; }
-        public ObservableCollection<MessageModel> Messages { get; set; }
+        public string Message { get; set; }
+        /*public ObservableCollection<MessageModel> Messages { get; set; }*/
+        public ObservableCollection<string> Messages { get; set; }
         public ObservableCollection<ContactModel> Contacts { get; set; }
 
         /*Commands*/
-        public RelayCommand SendCommand { get; set; }
+        public RelayCommand SendCommand { get; set; } /*might delete later*/
+        public RelayCommand SendMessageCommand { get; set; }
         public RelayCommand ConnectToServerCommand { get; set; }
        
         
@@ -33,16 +36,16 @@ namespace ChatApplication.MVVM.ViewModel
            
         }
 
-        private string _message;
+        /*private string _message;*/
 
-        public string Message
+        /*public string Message
         {
             get { return _message; }
             set {
                 _message = value;
                 OnPropertyChanged();
             }
-        }
+        }*/
 
 
         public MainViewModel()
@@ -50,12 +53,16 @@ namespace ChatApplication.MVVM.ViewModel
             /*server*/
             _server = new Server();
             _server.connectedEvent += UserConnected;
+            _server.msgReceivedEvent += MessageReceived;
+            _server.userDisconnectedEvent += RemoveUser;
             ConnectToServerCommand = new RelayCommand(o =>_server.ConnectToServer(Username),o => !string.IsNullOrEmpty(Username));
             
             /*ui*/
-            Messages = new ObservableCollection<MessageModel>();
+            Messages = new ObservableCollection<string>();
             Contacts = new ObservableCollection<ContactModel>();
-            SendCommand = new RelayCommand(o =>
+
+            SendMessageCommand = new RelayCommand(o => _server.SendMessageToServer(Message), o => !string.IsNullOrEmpty(Message));
+            /*SendCommand = new RelayCommand(o =>
             {
                 Messages.Add(new MessageModel
                 {
@@ -121,7 +128,23 @@ namespace ChatApplication.MVVM.ViewModel
                     ImageSource = "https://cdn.pixabay.com/photo/2018/04/18/18/56/user-3331256_1280.png",
                     Messages = Messages
                 });
-            }
+            }*/
+        }
+
+        private void RemoveUser()
+        {
+           var uid = _server.PacketReader.ReadMessage();
+           var user = Contacts.Where(x => x.UID == uid).FirstOrDefault();
+           Application.Current.Dispatcher.Invoke(()=>Contacts.Remove(user));
+        }
+
+        private void MessageReceived()
+        {
+            var msg = _server.PacketReader.ReadMessage();
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                Messages.Add(msg);
+            });
         }
 
         private void UserConnected()
